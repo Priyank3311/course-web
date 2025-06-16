@@ -1,0 +1,33 @@
+<button
+  *ngIf="buttonControlModel.matStrokedButton"
+  mat-stroked-button
+  [class]="buttonControlModel.class"
+  [color]="buttonControlModel.color"
+  [type]="buttonControlModel.type || 'button'"
+  [disabled]="isDisabled"
+  (click)="onClick.emit()"
+>
+  <img
+    *ngIf="buttonControlModel.displayIcon"
+    [src]="isDisabled ? buttonControlModel.disabledIconPath : buttonControlModel.iconPath"
+    [alt]="buttonControlModel.alt || 'icon'"
+  />
+  {{ buttonControlModel.buttonText }}
+</button>
+
+<button
+  *ngIf="!buttonControlModel.matStrokedButton"
+  mat-flat-button
+  [class]="buttonControlModel.class"
+  [color]="buttonControlModel.color"
+  [type]="buttonControlModel.type || 'button'"
+  [disabled]="isDisabled"
+  (click)="onClick.emit()"
+>
+  <img
+    *ngIf="buttonControlModel.displayIcon"
+    [src]="isDisabled ? buttonControlModel.disabledIconPath : buttonControlModel.iconPath"
+    [alt]="buttonControlModel.alt || 'icon'"
+  />
+  {{ buttonControlModel.buttonText }}
+</button>

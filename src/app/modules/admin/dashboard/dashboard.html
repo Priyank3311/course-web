@@ -1,0 +1,52 @@
+<h2>Manage Courses</h2>
+
+<div class="filter-bar">
+  <mat-form-field appearance="outline" class="filter-input">
+    <mat-label>Search</mat-label>
+    <input matInput placeholder="Course or Department" [(ngModel)]="searchText" (keyup)="onSearch()" />
+  </mat-form-field>
+
+</div>
+
+<button mat-raised-button color="primary" (click)="add()">+ Add Course</button>
+
+<table mat-table [dataSource]="courses" class="mat-elevation-z2 full-width">
+
+  <!-- Course Name -->
+  <ng-container matColumnDef="coursename">
+    <th mat-header-cell *matHeaderCellDef> Course </th>
+    <td mat-cell *matCellDef="let c"> {{ c.courseName }} </td>
+  </ng-container>
+
+  <!-- Department -->
+  <ng-container matColumnDef="department">
+    <th mat-header-cell *matHeaderCellDef> Department </th>
+    <td mat-cell *matCellDef="let c"> {{ c.department }} </td>
+  </ng-container>
+
+  <!-- Credits -->
+  <ng-container matColumnDef="credits">
+    <th mat-header-cell *matHeaderCellDef> Credits </th>
+    <td mat-cell *matCellDef="let c"> {{ c.credits }} </td>
+  </ng-container>
+
+  <!-- Actions -->
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let c">
+      <button mat-button color="accent" (click)="edit(c.id)">Edit</button>
+      <button mat-button color="warn" (click)="delete(c.id)">Delete</button>
+      <button mat-button color="primary" (click)="viewStudents(c.id)">View Students</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['coursename', 'department', 'credits', 'action']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['coursename', 'department', 'credits', 'action']"></tr>
+</table>
+
+<mat-paginator
+  [length]="totalcount"
+  [pageSize]="size"
+  [pageSizeOptions]="[5, 10, 20]"
+  (page)="onPageChange($event)">
+</mat-paginator>

@@ -1,0 +1,12 @@
+button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  text-transform: uppercase;
+
+  img {
+    height: 20px;
+    width: 20px;
+  }
+}

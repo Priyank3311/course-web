@@ -1,1 +1,34 @@
-<p>main-layout works!</p>
+<mat-sidenav-container class="layout-container">
+  <mat-sidenav #sidenav mode="side" class="sidenav" opened>
+    <mat-toolbar color="primary" class="sidenav-header">
+      {{ role | titlecase }} Panel
+    </mat-toolbar>
+
+    <!-- Role-based Nav -->
+    <mat-nav-list *ngIf="role === 'student'">
+      <a mat-list-item routerLink="/student/dashboard" routerLinkActive="active">Available Courses</a>
+      <a mat-list-item routerLink="/student/my-courses" routerLinkActive="active">My Courses</a>
+      <a mat-list-item routerLink="/student/profile" routerLinkActive="active">Profile</a>
+    </mat-nav-list>
+
+    <mat-nav-list *ngIf="role === 'admin'">
+      <a mat-list-item routerLink="/admin/dashboard" routerLinkActive="active">Course List</a>
+      <a mat-list-item routerLink="/admin/add-course" routerLinkActive="active">Add Course</a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="main-content">
+    <mat-toolbar color="primary">
+      <button mat-icon-button (click)="sidenav.toggle()" class="menu-button">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="app-title">Course Management System</span>
+      <span class="spacer"></span>
+      <button mat-button color="accent" (click)="logout()">Logout</button>
+    </mat-toolbar>
+
+    <div class="router-content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

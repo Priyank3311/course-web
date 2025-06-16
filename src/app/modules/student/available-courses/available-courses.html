@@ -1,0 +1,36 @@
+<mat-form-field appearance="outline" class="full-width">
+  <mat-label>Search Courses</mat-label>
+  <input matInput [(ngModel)]="searchText" (input)="filterCourses()" placeholder="Search by name or department" />
+</mat-form-field>
+
+<table mat-table [dataSource]="filteredCourses" class="mat-elevation-z3 full-width">
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="coursename">
+    <th mat-header-cell *matHeaderCellDef> Course </th>
+    <td mat-cell *matCellDef="let course"> {{ course.courseName }} </td>
+  </ng-container>
+
+  <!-- Department Column -->
+  <ng-container matColumnDef="department">
+    <th mat-header-cell *matHeaderCellDef> Department </th>
+    <td mat-cell *matCellDef="let course"> {{ course.department }} </td>
+  </ng-container>
+
+  <!-- Credits Column -->
+  <ng-container matColumnDef="credits">
+    <th mat-header-cell *matHeaderCellDef> Credits </th>
+    <td mat-cell *matCellDef="let course"> {{ course.credits }} </td>
+  </ng-container>
+
+  <!-- Enroll Column -->
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef> Action </th>
+    <td mat-cell *matCellDef="let course">
+      <button mat-raised-button color="primary" (click)="enroll(course.id)">Enroll</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="['coursename', 'department', 'credits', 'action']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['coursename', 'department', 'credits', 'action']"></tr>
+</table>
