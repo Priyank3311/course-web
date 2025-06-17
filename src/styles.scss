@@ -4,22 +4,62 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 /* styles.scss */
-.snackbar-success {
-  background-color: #4caf50;
-  color: #fff;
-}
+// ::ng-deep .mat-snack-bar-container.snackbar-success {
+//   background-color: #4caf50 !important;
+//   color: #ffffff !important;
+// }
 
-.snackbar-error {
-  background-color: #f44336;
-  color: #fff;
-}
+// ::ng-deep .mat-snack-bar-container.snackbar-error {
+//   background-color: #f44336 !important;
+//   color: #ffffff !important;
+// }
 
-.snackbar-info {
-  background-color: #2196f3;
-  color: #fff;
-}
+// ::ng-deep .mat-snack-bar-container.snackbar-info {
+//   background-color: #2196f3 !important;
+//   color: #ffffff !important;
+// }
 
-.snackbar-warning {
-  background-color: #ff9800;
-  color: #fff;
+// ::ng-deep .mat-snack-bar-container.snackbar-warning {
+//   background-color: #ff9800 !important;
+//   color: #ffffff !important;
+// }
+// .snackbar-success {
+//   background-color: #4caf50;
+//   color: #fff;
+// }
+
+// .snackbar-error {
+//   background-color: #f44336;
+//   color: #fff;
+// }
+
+// .snackbar-info {
+//   background-color: #2196f3;
+//   color: #fff;
+// }
+
+// .snackbar-warning {
+//   background-color: #ff9800;
+//   color: #fff;
+// }
+
+.mat-mdc-snack-bar-container {
+  &.snackbar-success {
+    --mdc-snackbar-container-color: #5cb85c;
+  }
+
+  &.snackbar-error {
+    --mdc-snackbar-container-color: #d9534f;
+  }
+
+  &.snackbar-info {
+    --mdc-snackbar-container-color: #5bc0de;
+  }
+
+  &.snackbar-warning {
+    --mdc-snackbar-container-color: #f0ad4e;
+  }
+  .mdc-button__label {
+    color: white;
+  }
 }

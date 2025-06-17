@@ -15,6 +15,6 @@ export class LoginGuard implements CanActivate {
       return false;
     }
 
-    return true; // allow access to login
+    return true;
   }
 }

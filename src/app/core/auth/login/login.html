@@ -13,7 +13,8 @@
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Password</mat-label>
       <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Toggle password visibility'" [attr.aria-pressed]="!hide">
+      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Toggle password visibility'"
+        [attr.aria-pressed]="!hide">
         <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
       </button>
       <mat-error *ngIf="loginForm.get('password')?.invalid">
@@ -21,16 +22,17 @@
       </mat-error>
     </mat-form-field>
 
-    <app-common-button
-      [buttonControlModel]="{
+    <app-common-button [buttonControlModel]="{
         buttonText: 'Login',
         class: 'btn-login',
         color: 'primary',
         matStrokedButton: false,
         displayIcon: false
-      }"
-      [isDisabled]="loading"
-      (onClick)="onSubmit()"
-    ></app-common-button>
+      }" [isDisabled]="loading" (onClick)="onSubmit()"></app-common-button>
   </form>
+  <div class="register-link">
+    Don't have an account?
+    <a routerLink="/auth/register">Register here</a>
+  </div>
 </mat-card>
+<router-outlet></router-outlet>

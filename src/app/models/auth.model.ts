@@ -6,5 +6,11 @@ export interface LoginRequestDto {
 export interface AuthResponseDto {
   username: string;
   role: string;
-  token: string;
+  accessToken: string;
+  refreshToken: string;
+}
+export interface RegisterRequestDto {
+  username: string;
+  password: string;
+  role: string;
 }

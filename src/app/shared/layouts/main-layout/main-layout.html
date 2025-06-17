@@ -24,6 +24,8 @@
       </button>
       <span class="app-title">Course Management System</span>
       <span class="spacer"></span>
+      <mat-slide-toggle (change)="themeService.toggleTheme()" color="primary">
+      </mat-slide-toggle>
       <button mat-button color="accent" (click)="logout()">Logout</button>
     </mat-toolbar>
 

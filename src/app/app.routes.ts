@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
-import { Dashboard } from './modules/admin/dashboard/dashboard';
 
 export const routes: Routes = [
   {
@@ -14,7 +13,6 @@ export const routes: Routes = [
   },
   {
     path: 'student',
-    canActivate: [authGuard],
     loadChildren: () => import('./modules/student/student.routes').then(m => m.studentRoutes)
   },
   {

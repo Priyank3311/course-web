@@ -9,7 +9,7 @@ export const studentRoutes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
-      { path: 'dashboard', component: AvailableCourses }, // default page
+      { path: 'dashboard', component: AvailableCourses }, 
       { path: 'courses', component: AvailableCourses },
       { path: 'my-courses', component: EnrolledCoursesComponent },
       { path: 'profile', component: Profile }

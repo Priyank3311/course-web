@@ -58,7 +58,6 @@ export class Dashboard implements OnInit {
     // });
     this.adminService.getPagedCourses(this.searchText, this.page, this.size).subscribe((res) => {
       this.courses = res.data;
-      console.log('Courses:', this.courses);
       this.totalcount = res.data?.[0]?.totalCount || 0;
     });
   }

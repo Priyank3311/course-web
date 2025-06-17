@@ -1,0 +1,164 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use "@angular/material" as mat;
+@import "bootstrap-grid.css";
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+$primaryColor: (
+  50: #f0ecea,
+  100: #e1d9d4,
+  200: #c4b3a9,
+  300: #a68d7e,
+  400: #896753,
+  500: #6b4128,
+  600: #563420,
+  700: #402718,
+  800: #2b1a10,
+  900: #150d08,
+  A100: #cdd1ff,
+  A200: #9aa2ff,
+  A400: #6774ff,
+  A700: #4d5cff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #ffffff,
+    A700: #ffffff,
+  ),
+);
+
+$accentColor: (
+  50: #000000,
+  100: #332304,
+  200: #664608,
+  300: #98680d,
+  400: #cb8b11,
+  500: #feae15,
+  600: #febe44,
+  700: #fece73,
+  800: #ffdfa1,
+  900: #ffefd0,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+  ),
+);
+
+// Typography
+$my-custom-typography-config: mat.m2-define-typography-config(
+  $font-family: '"Poppins", sans-serif',
+);
+
+$course-primary: mat.m2-define-palette($primaryColor);
+$course-accent: mat.m2-define-palette($accentColor);
+$course-typography: mat.m2-define-typography-config(
+  $font-family: '"Poppins", sans-serif',
+);
+
+// Define the theme object.
+// $course-theme: mat.m2-define-light-theme(
+//   (
+//     color: (
+//       primary: $course-primary,
+//       accent: $course-accent,
+//     ),
+//     typography: $my-custom-typography-config,
+//   )
+// );
+
+//  LIGHT THEME
+$light-theme: mat.m2-define-light-theme(
+  (
+    color: (
+      primary: $course-primary,
+      accent: $course-accent,
+    ),
+    typography: $course-typography,
+  )
+);
+
+// DARK THEME
+$dark-theme: mat.m2-define-dark-theme(
+  (
+    color: (
+      primary: $course-primary,
+      accent: $course-accent,
+    ),
+    typography: $course-typography,
+  )
+);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+// @include mat.all-component-themes($course-theme);
+// @include mat.all-component-typographies($my-custom-typography-config);
+.light-theme {
+  @include mat.all-component-themes($light-theme);
+  @include mat.all-component-typographies($course-typography);
+}
+
+.dark-theme {
+  @include mat.all-component-themes($dark-theme);
+  @include mat.all-component-typographies($course-typography);
+}
+body.dark-theme {
+  background-color: #121212;
+  color: #fff;
+}
+body.light-theme {
+  background-color: #fdfdfd;
+  color: #222;
+}
+// :root {
+// }
+
+// Comment out the line below if you want to use the pre-defined typography utility classes.
+// For more information: https://material.angular.io/guide/typography#using-typography-styles-in-your-application.
+// @include mat.typography-hierarchy($RMS-theme);
+
+// Comment out the line below if you want to use the deprecated `color` inputs.
+// @include mat.color-variants-backwards-compatibility($RMS-theme);
+/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nokora&display=swap");
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  color: #363430;
+  letter-spacing: 0.5px;
+  background-color: #fcf7ef;
+}
+
+@import "style.scss";
+@import "dev-style.scss";

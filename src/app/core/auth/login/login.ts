@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { ValidatorsPattern } from '../../../constants/validators-pattern';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,7 +23,8 @@ import { HttpErrorResponse } from '@angular/common/http';
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    CommonButtonComponent
+    CommonButtonComponent,
+    RouterModule
   ],
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
@@ -53,11 +54,11 @@ export class LoginComponent {
 
     this.auth.login(this.loginForm.value).subscribe({
       next: async (res) => {
-        this.auth.setToken(res.data.token);
-        console.log('Login successful:', res.data.token);
+        this.auth.setToken(res.data.accessToken);
+        this.auth.setRefreshToken(res.data.refreshToken);
+        console.log('Login successful:', res.data);
+        this.auth.setJustLoggedIn(true);
         const role = res.data.role.toLowerCase();
-        console.log("User role:", role);
-        console.log("Routing to:", `/student/dashboard`);
         setTimeout(() => {
           if (role === 'admin') {
             this.router.navigate(['/admin/dashboard']);

@@ -12,25 +12,23 @@
 
 <table mat-table [dataSource]="courses" class="mat-elevation-z2 full-width">
 
-  <!-- Course Name -->
-  <ng-container matColumnDef="coursename">
+  <ng-container matColumnDef="courseName">
     <th mat-header-cell *matHeaderCellDef> Course </th>
     <td mat-cell *matCellDef="let c"> {{ c.courseName }} </td>
   </ng-container>
 
-  <!-- Department -->
   <ng-container matColumnDef="department">
     <th mat-header-cell *matHeaderCellDef> Department </th>
     <td mat-cell *matCellDef="let c"> {{ c.department }} </td>
   </ng-container>
 
-  <!-- Credits -->
+
   <ng-container matColumnDef="credits">
     <th mat-header-cell *matHeaderCellDef> Credits </th>
     <td mat-cell *matCellDef="let c"> {{ c.credits }} </td>
   </ng-container>
 
-  <!-- Actions -->
+
   <ng-container matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef> Actions </th>
     <td mat-cell *matCellDef="let c">
@@ -40,8 +38,8 @@
     </td>
   </ng-container>
 
-  <tr mat-header-row *matHeaderRowDef="['coursename', 'department', 'credits', 'action']"></tr>
-  <tr mat-row *matRowDef="let row; columns: ['coursename', 'department', 'credits', 'action']"></tr>
+  <tr mat-header-row *matHeaderRowDef="['courseName', 'department', 'credits', 'action']"></tr>
+  <tr mat-row *matRowDef="let row; columns: ['courseName', 'department', 'credits', 'action']"></tr>
 </table>
 
 <mat-paginator

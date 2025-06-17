@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SnackBarService } from '../../../shared/services/snack-bar';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-available-courses',
@@ -21,14 +22,18 @@ export class AvailableCourses implements OnInit {
   filteredCourses: CourseResponseDto[] = [];
   searchText: string = '';
 
-  constructor(private studentService: StudentService,private snackBar: SnackBarService ) { }
+  constructor(private studentService: StudentService, private snackBar: SnackBarService,private auth:AuthService) { }
   ngOnInit(): void {
     this.loadCourses();
+    if (this.auth.getJustLoggedIn()) {
+      this.auth.setJustLoggedIn(false);
+      const username = this.auth.getLoggedInUsername();
+      this.snackBar.Success(`Welcome, ${username}!`);
+    }
   }
 
   loadCourses() {
     this.studentService.getAvailableCourses().subscribe((res) => {
-      console.log('Available courses:', res.data);
       this.courses = res.data;
       this.filteredCourses = res.data;
     });
