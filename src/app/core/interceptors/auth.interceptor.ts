@@ -1,5 +1,5 @@
 import { inject } from '@angular/core';
-import { HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn, HttpStatusCode } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
 import { catchError, switchMap, throwError } from 'rxjs';
 
@@ -8,34 +8,43 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const token = auth.getToken();
   const refreshToken = auth.getRefreshToken();
 
-  // If no token but refresh exists → try to refresh early
-  if (!token && refreshToken) {
-    console.log('No token found, attempting to refresh...');
-    return auth.refreshAccessToken().pipe(
-      switchMap((newToken) => {
-        const retryReq = req.clone({
-          setHeaders: { Authorization: `Bearer ${newToken}` }
-        });
-        return next(retryReq);
-      }),
-      catchError(err => {
-        auth.logout();
-        return throwError(() => err);
-      })
-    );
-  }
+  const isRefreshRequest = req.url.toLowerCase().includes('/auth/refresh');
 
-  // If token exists → attach it
+  // Skip processing for refresh token request itself
+  // if (isRefreshRequest) {
+  //   return next(req);
+  // }
+
+
+  // If no token and we have refreshToken → refresh access token
+  // if (!token && refreshToken) {
+  //   return auth.refreshAccessToken().pipe(
+  //     switchMap((newToken) => {
+  //       const retryReq = req.clone({
+  //         setHeaders: { Authorization: `Bearer ${newToken}` }
+  //       });
+  //       return next(retryReq);
+  //     }),
+  //     catchError(err => {
+  //       auth.logout();
+  //       return throwError(() => err);
+  //     })
+  //   );
+  // }
+
+  // Attach token if available
   if (token) {
     req = req.clone({
       setHeaders: { Authorization: `Bearer ${token}` }
     });
   }
 
-  // ✅ Handle expired token with 401
+  // Handle 401 by refreshing (if it's not a refresh request)
   return next(req).pipe(
     catchError((error) => {
-      if (error.status === 401 && refreshToken) {
+      console.error('HTTP Error:', error);
+      if (error.status == HttpStatusCode.Unauthorized && refreshToken) {
+        console.log('Access token expired, refreshing...');
         return auth.refreshAccessToken().pipe(
           switchMap((newToken) => {
             const retryReq = req.clone({

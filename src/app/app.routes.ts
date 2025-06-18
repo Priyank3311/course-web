@@ -13,6 +13,7 @@ export const routes: Routes = [
   },
   {
     path: 'student',
+    canActivate: [authGuard],
     loadChildren: () => import('./modules/student/student.routes').then(m => m.studentRoutes)
   },
   {

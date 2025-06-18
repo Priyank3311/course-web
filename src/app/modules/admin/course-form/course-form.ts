@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { HubService } from '../../../shared/services/hub-service/hub.service';
 
 @Component({
   selector: 'app-course-form',
@@ -34,8 +35,14 @@ export class CourseForm implements OnInit {
     private adminService: AdminService,
     private snackBar: SnackBarService,
     private route: ActivatedRoute,
-    private router: Router
-  ) { }
+    private router: Router,
+    private hubService: HubService
+  ) {
+    hubService.createConnection().catch(err => {
+      console.error('SignalR connection error:', err);
+      this.snackBar.Error('Failed to connect to real-time updates');
+    });
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -72,6 +79,7 @@ export class CourseForm implements OnInit {
       this.adminService.updateCourse(this.courseId, dto).subscribe({
         next: () => {
           this.snackBar.Success('Course updated successfully');
+          this.hubService.refreshStudentCourses();
           this.router.navigate(['/admin/dashboard']);
         },
         error: (err) => {

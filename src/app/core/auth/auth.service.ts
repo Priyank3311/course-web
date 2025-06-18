@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BaseService } from '../../services/base.service';
 import { LoginRequestDto, AuthResponseDto, RegisterRequestDto } from '../../models/auth.model';
 import { ResponseModel } from '../../models/response.model';
-import { map, Observable, tap, throwError } from 'rxjs';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -87,13 +87,11 @@ export class AuthService extends BaseService {
 
   refreshAccessToken(): Observable<string> {
     const refreshToken = this.getRefreshToken();
-    console.log("response of refress", refreshToken);
     if (!refreshToken) return throwError(() => 'Refresh token missing');
-
+    console.log('Refreshing access token...');
     return this.add<{ refreshToken: string }, ResponseModel<string>>('/Auth/refresh', { refreshToken })
       .pipe(
         tap(res => {
-          console.log("res", res);
           this.setToken(res.data);
         }),
         map(res => res.data)

@@ -14,6 +14,7 @@ import {  MatSelectModule } from '@angular/material/select';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
+import { HubService } from '../../../shared/services/hub-service/hub.service';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class Dashboard implements OnInit {
     private router: Router,
     private snackBar: SnackBarService,
     private dialog: MatDialog,
+    private hubService: HubService
   ) { }
 
   ngOnInit(): void {
@@ -80,6 +82,7 @@ export class Dashboard implements OnInit {
       next: (res) => {
         if (res.data) {
           this.snackBar.Success('Course deleted');
+          this.hubService.refreshStudentCourses();
           this.loadCourses();
         } else {
 

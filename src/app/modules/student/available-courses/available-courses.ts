@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SnackBarService } from '../../../shared/services/snack-bar';
 import { AuthService } from '../../../core/auth/auth.service';
+import { HubService } from '../../../shared/services/hub-service/hub.service';
 
 @Component({
   selector: 'app-available-courses',
@@ -22,7 +23,7 @@ export class AvailableCourses implements OnInit {
   filteredCourses: CourseResponseDto[] = [];
   searchText: string = '';
 
-  constructor(private studentService: StudentService, private snackBar: SnackBarService,private auth:AuthService) { }
+  constructor(private studentService: StudentService, private snackBar: SnackBarService, private auth: AuthService, private hubService: HubService) { }
   ngOnInit(): void {
     this.loadCourses();
     if (this.auth.getJustLoggedIn()) {
@@ -30,6 +31,18 @@ export class AvailableCourses implements OnInit {
       const username = this.auth.getLoggedInUsername();
       this.snackBar.Success(`Welcome, ${username}!`);
     }
+    this.hubService.createConnection().then(() => {
+      this.hubService.onNewCourse((course: CourseResponseDto) => {
+        this.courses.unshift(course);  // show new course at top
+        this.filteredCourses = [...this.courses];
+        this.snackBar.Success(`🆕 New course added: ${course.courseName}`);
+      });
+    });
+    this.hubService.onRefreshStudentCourses(() => {
+      window.location.reload();
+      this.snackBar.Success('Courses refreshed');
+    });
+
   }
 
   loadCourses() {
