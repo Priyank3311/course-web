@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
-import { environment } from '../../../../environments/environment';
-import { CourseResponseDto } from '../../../models/course.model';
+import { environment } from '../../../environments/environment';
+import { CourseResponseDto } from '../../models/course.model';
 
 @Injectable({ providedIn: 'root' })
 export class HubService {

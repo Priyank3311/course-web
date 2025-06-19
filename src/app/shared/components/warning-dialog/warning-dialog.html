@@ -1,0 +1,15 @@
+<mat-dialog-content class="dialog-body action-modal">
+
+  <img src="assets/images/warning-icon.svg" alt="Warning" class="warning-icon" />
+
+  <p class="info-text">{{ message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center" class="action-modal-footer">
+  <button mat-flat-button color="primary" (click)="dialogRef.close(true)" class="btn-sm">
+    Yes
+  </button>
+  <button mat-stroked-button color="primary" (click)="dialogRef.close(false)" class="btn-sm">
+    No
+  </button>
+</mat-dialog-actions>

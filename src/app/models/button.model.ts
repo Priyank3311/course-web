@@ -1,9 +1,9 @@
 export interface ButtonControlModel {
+  type: string;
   buttonText: string;
+  color: string;
   class?: string;
-  color?: 'primary' | 'accent' | 'warn';
-  type?: 'button' | 'submit' | 'reset';
-  matStrokedButton?: boolean;
+  matStrokedButton: boolean;
   displayIcon?: boolean;
   iconPath?: string;
   disabledIconPath?: string;

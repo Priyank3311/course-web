@@ -9,8 +9,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonButtonComponent } from '../../../shared/components/common-button/common-button';
+import { CommonButtonComponent } from '../../../shared/modules/form-control/components/common-button/common-button';
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthButtonControls, LoginFormControls } from '../../../shared/modules/form-control/static/button.config'
+import { TextControllComponent } from '../../../shared/modules/form-control/components/text-controll.component/text-controll.component';
 
 @Component({
   selector: 'app-login',
@@ -24,7 +26,8 @@ import { HttpErrorResponse } from '@angular/common/http';
     MatIconModule,
     MatButtonModule,
     CommonButtonComponent,
-    RouterModule
+    RouterModule,
+    TextControllComponent
   ],
   templateUrl: './login.html',
   styleUrls: ['./login.scss']
@@ -32,6 +35,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent {
   hide = true;
   loading = false;
+  buttonControls = AuthButtonControls;
+  formControls = LoginFormControls;
   loginForm: ReturnType<FormBuilder['group']>;
 
 
@@ -47,7 +52,11 @@ export class LoginComponent {
     });
   }
 
-
+  togglePassword() {
+    this.hide = !this.hide;
+    this.formControls.passwordField.inputType = this.hide ? 'password' : 'text';
+    this.formControls.passwordField.iconName = this.hide ? 'visibility' : 'visibility_off';
+  }
   onSubmit() {
     if (this.loginForm.invalid) return;
     this.loading = true;

@@ -31,6 +31,7 @@
             ],
             "styles": [
              "public/assets/scss/theme.scss",
+             "src/styles.scss",
               "@angular/material/prebuilt-themes/azure-blue.css"
             ]
           },
@@ -90,7 +91,7 @@
             ],
             "styles": [
               "public/assets/scss/theme.scss",
-
+              "src/styles.scss",
               "@angular/material/prebuilt-themes/azure-blue.css"
             ]
           }

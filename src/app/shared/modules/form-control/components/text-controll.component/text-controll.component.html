@@ -1,0 +1,39 @@
+<mat-form-field appearance="outline" class="full-width" [formGroup]="form">
+  <mat-label>{{ formControlModel.label }}</mat-label>
+
+
+  <input
+    *ngIf="!formControlModel.dropdownData"
+    matInput
+    [formControlName]="formControlModel.key"
+    [type]="formControlModel.inputType || 'text'"
+    [placeholder]="formControlModel.placeholder || ''"
+    (keyup)="keyupEvent.emit($event)"
+    />
+
+
+
+  <mat-select
+    *ngIf="formControlModel.dropdownData"
+    [formControlName]="formControlModel.key">
+    <mat-option *ngFor="let option of formControlModel.dropdownData" [value]="option.value">
+      {{ option.label }}
+    </mat-option>
+  </mat-select>
+
+
+  <button
+    *ngIf="formControlModel.displayIcon"
+    type="button"
+    mat-icon-button
+    matSuffix
+    (click)="onIconClick()"
+    [attr.aria-label]="'Toggle visibility'">
+    <mat-icon class="suffix-icon">{{ formControlModel.iconName }}</mat-icon>
+  </button>
+
+
+  <mat-error *ngIf="control?.invalid && control?.touched">
+    {{ formControlModel.errorData?.[0]?.errorMsg }}
+  </mat-error>
+</mat-form-field>

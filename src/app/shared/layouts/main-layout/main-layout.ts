@@ -9,6 +9,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from '../../../core/auth/auth.service';
 import { ThemeService } from '../../services/theme.service';
 import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { MatDialog } from '@angular/material/dialog';
+import { WarningDialog } from '../../components/warning-dialog/warning-dialog';
+
+
+
 
 @Component({
   selector: 'app-main-layout',
@@ -31,12 +36,21 @@ export class MainLayoutComponent {
   role: string = '';
 
 
-  constructor(private auth: AuthService,private router: Router,public themeService : ThemeService) {
+  constructor(private auth: AuthService,private router: Router,public themeService : ThemeService,private dialog: MatDialog) {
     this.role = this.auth.getRole().toLowerCase();
   }
 
-  logout() {
-    this.auth.logout();
-    this.router.navigate(['/auth/login'])
+  logout(): void {
+    const dialogRef = this.dialog.open(WarningDialog, {
+      width: '400px',
+      data: 'Are you sure you want to logout?'
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.auth.logout();
+        this.router.navigate(['/auth/login']);
+      }
+    });
   }
 }

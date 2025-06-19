@@ -159,6 +159,13 @@ body {
   letter-spacing: 0.5px;
   background-color: #fcf7ef;
 }
+.light-theme .mat-form-field .mat-icon.suffix-icon,
+.dark-theme .mat-form-field .mat-icon.suffix-icon {
+  font-size: 20px;
+  color: #333;
+  border: #000000 1px solid;
+  background-color: #f0ecea;
 
+}
 @import "style.scss";
 @import "dev-style.scss";

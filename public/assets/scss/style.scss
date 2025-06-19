@@ -21,6 +21,11 @@
   }
 }
 
+.mat-form-field .mat-icon.suffix-icon {
+  font-size: 20px;
+  color: #555;
+}
+
 .register-link {
   text-align: center;
   display: flex;
@@ -140,6 +145,10 @@ mat-card:hover {
 .status-pending {
   color: orange;
   font-weight: bold;
+}
+
+.filter-bar{
+  width: 20%;
 }
 
 // available course

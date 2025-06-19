@@ -2,33 +2,13 @@
   <h2 class="title">Login</h2>
 
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Username</mat-label>
-      <input matInput formControlName="username" />
-      <mat-error *ngIf="loginForm.get('username')?.invalid">
-        Valid username required
-      </mat-error>
-    </mat-form-field>
+    <app-text-control [form]="loginForm" [formControlModel]="formControls.usernameField"></app-text-control>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Password</mat-label>
-      <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Toggle password visibility'"
-        [attr.aria-pressed]="!hide">
-        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
-      </button>
-      <mat-error *ngIf="loginForm.get('password')?.invalid">
-        Valid password required
-      </mat-error>
-    </mat-form-field>
+    <app-text-control [form]="loginForm" [formControlModel]="formControls.passwordField"
+      (iconClick)="togglePassword()"></app-text-control>
 
-    <app-common-button [buttonControlModel]="{
-        buttonText: 'Login',
-        class: 'btn-login',
-        color: 'primary',
-        matStrokedButton: false,
-        displayIcon: false
-      }" [isDisabled]="loading" (onClick)="onSubmit()"></app-common-button>
+    <app-common-button [buttonControlModel]="buttonControls.loginButton"
+      [isDisabled]="loginForm.invalid"></app-common-button>
   </form>
   <div class="register-link">
     Don't have an account?

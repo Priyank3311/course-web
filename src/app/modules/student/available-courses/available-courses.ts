@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StudentService } from '../../../services/student';
 import { CourseResponseDto } from '../../../models/course.model';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
@@ -9,12 +9,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SnackBarService } from '../../../shared/services/snack-bar';
 import { AuthService } from '../../../core/auth/auth.service';
-import { HubService } from '../../../shared/services/hub-service/hub.service';
+import { HubService } from '../../../shared/hub-service/hub.service';
+import { CourseSearchControls } from '../../../shared/modules/form-control/static/button.config'
+import { TextControllComponent } from '../../../shared/modules/form-control/components/text-controll.component/text-controll.component';
 
 @Component({
   selector: 'app-available-courses',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule],
+  imports: [CommonModule, MatTableModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule,TextControllComponent],
   templateUrl: './available-courses.html',
   styleUrl: './available-courses.scss'
 })
@@ -22,8 +24,10 @@ export class AvailableCourses implements OnInit {
   courses: CourseResponseDto[] = [];
   filteredCourses: CourseResponseDto[] = [];
   searchText: string = '';
+  searchForm!: FormGroup;
+  formControls = CourseSearchControls;
 
-  constructor(private studentService: StudentService, private snackBar: SnackBarService, private auth: AuthService, private hubService: HubService) { }
+  constructor(private studentService: StudentService, private snackBar: SnackBarService, private auth: AuthService, private hubService: HubService, private fb: FormBuilder) { }
   ngOnInit(): void {
     this.loadCourses();
     if (this.auth.getJustLoggedIn()) {
@@ -33,7 +37,7 @@ export class AvailableCourses implements OnInit {
     }
     this.hubService.createConnection().then(() => {
       this.hubService.onNewCourse((course: CourseResponseDto) => {
-        this.courses.unshift(course);  // show new course at top
+        this.courses.unshift(course);
         this.filteredCourses = [...this.courses];
         this.snackBar.Success(`🆕 New course added: ${course.courseName}`);
       });
@@ -41,6 +45,10 @@ export class AvailableCourses implements OnInit {
     this.hubService.onRefreshStudentCourses(() => {
       window.location.reload();
       this.snackBar.Success('Courses refreshed');
+    });
+
+    this.searchForm = this.fb.group({
+      searchText: ['']
     });
 
   }
@@ -59,7 +67,18 @@ export class AvailableCourses implements OnInit {
       course.department.toLowerCase().includes(term)
     );
   }
+  searchedMenuItems(event: KeyboardEvent) {
+    const searchValue = this.searchForm.get('searchText')?.value?.toLowerCase() || '';
+    this.filteredCourses = this.courses.filter(c =>
+      c.courseName.toLowerCase().includes(searchValue) ||
+      c.department.toLowerCase().includes(searchValue)
+    );
+  }
 
+  removeMenuItemsSearch() {
+    this.searchForm.get('searchText')?.setValue('');
+    this.filteredCourses = this.courses;
+  }
   enroll(courseId: number) {
     this.studentService.enroll({ courseId }).subscribe({
       next: (res) => {

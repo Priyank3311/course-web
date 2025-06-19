@@ -1,0 +1,22 @@
+.dialog-body {
+  text-align: center;
+  .warning-icon {
+    display: block;
+    margin: auto;
+    width: 60px;
+    height: 60px;
+    img {
+      width: 100%;
+    }
+  }
+  .info-text {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: 500;
+  }
+}
+
+.action-modal-footer {
+  justify-content: center;
+  margin-top: 20px;
+}

@@ -1,11 +1,15 @@
 <h2>Manage Courses</h2>
 
 <div class="filter-bar">
-  <mat-form-field appearance="outline" class="filter-input">
+  <!-- <mat-form-field appearance="outline" class="filter-input">
     <mat-label>Search</mat-label>
     <input matInput placeholder="Course or Department" [(ngModel)]="searchText" (keyup)="onSearch()" />
-  </mat-form-field>
-
+  </mat-form-field> -->
+  <app-text-control
+  [form]="searchForm"
+  [formControlModel]="formControls.searchField"
+  (keyupEvent)="onSearch()"
+></app-text-control>
 </div>
 
 <button mat-raised-button color="primary" (click)="add()">+ Add Course</button>

@@ -10,7 +10,7 @@ export class SnackBarService {
   Success(message: string, duration: number = 3000) {
     this.snackBar.open(message, '✖', {
       duration,
-      panelClass: ['snackbar-success'],
+      panelClass: "snackbar-success",
       horizontalPosition: 'end',
       verticalPosition: 'bottom',
     });
@@ -19,7 +19,7 @@ export class SnackBarService {
   Error(message: string, duration: number = 3000) {
     this.snackBar.open(message, '✖', {
       duration,
-      panelClass: ['snackbar-error'],
+      panelClass: "snackbar-error",
       horizontalPosition: 'end',
       verticalPosition: 'bottom',
     });
@@ -28,7 +28,7 @@ export class SnackBarService {
   Info(message: string, duration: number = 3000) {
     this.snackBar.open(message, '✖', {
       duration,
-      panelClass: ['snackbar-info'],
+      panelClass:"snackbar-info",
       horizontalPosition: 'end',
       verticalPosition: 'bottom',
     });
@@ -37,7 +37,7 @@ export class SnackBarService {
   Warning(message: string, duration: number = 3000) {
     this.snackBar.open(message, '✖', {
       duration,
-      panelClass: ['snackbar-warning'],
+      panelClass: "snackbar-warning",
       horizontalPosition: 'end',
       verticalPosition: 'bottom',
     });

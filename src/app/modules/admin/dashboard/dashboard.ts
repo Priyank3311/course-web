@@ -11,10 +11,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import {  MatFormFieldModule } from '@angular/material/form-field';
 import {  MatSelectModule } from '@angular/material/select';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatOptionModule } from '@angular/material/core';
-import { HubService } from '../../../shared/services/hub-service/hub.service';
+import { HubService } from '../../../shared/hub-service/hub.service';
+import { CourseSearchControls } from '../../../shared/modules/form-control/static/button.config'
+import { TextControllComponent } from '../../../shared/modules/form-control/components/text-controll.component/text-controll.component';
 
 
 @Component({
@@ -29,28 +31,36 @@ import { HubService } from '../../../shared/services/hub-service/hub.service';
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
-    MatOptionModule
+    MatOptionModule,
+    TextControllComponent
   ],templateUrl: './dashboard.html',
   styleUrl: './dashboard.scss'
 })
 export class Dashboard implements OnInit {
   courses: CourseResponseDto[] = [];
-  searchText: string = '';
+  // searchText: string = '';
   page: number = 1;
   size: number = 5;
   totalcount: number = 0;
   selectedDept: string = '';
   departmentList: string[] = ['IT', 'HR', 'Marketing', 'Finance'];
+  formControls = CourseSearchControls;
+  searchForm!: FormGroup;
+
 
   constructor(
     private adminService: AdminService,
     private router: Router,
     private snackBar: SnackBarService,
     private dialog: MatDialog,
-    private hubService: HubService
+    private hubService: HubService,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit(): void {
+    this.searchForm = this.fb.group({
+      searchText: ['']
+    });
     this.loadCourses();
   }
 
@@ -58,7 +68,8 @@ export class Dashboard implements OnInit {
     // this.adminService.getCourses().subscribe((res) => {
     //   this.courses = res.data;
     // });
-    this.adminService.getPagedCourses(this.searchText, this.page, this.size).subscribe((res) => {
+    const searchText = this.searchForm.get('searchText')?.value || '';
+    this.adminService.getPagedCourses(searchText, this.page, this.size).subscribe((res) => {
       this.courses = res.data;
       this.totalcount = res.data?.[0]?.totalCount || 0;
     });

@@ -1,14 +1,18 @@
 import { inject } from '@angular/core';
 import { HttpInterceptorFn, HttpStatusCode } from '@angular/common/http';
 import { AuthService } from '../auth/auth.service';
-import { catchError, switchMap, throwError } from 'rxjs';
+import { catchError, finalize, switchMap, throwError } from 'rxjs';
+import {LoaderService} from '../../shared/modules/form-control/components/loader/loader.service'
 
 export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
   const auth = inject(AuthService);
   const token = auth.getToken();
   const refreshToken = auth.getRefreshToken();
+  const loader = inject(LoaderService);
 
   const isRefreshRequest = req.url.toLowerCase().includes('/auth/refresh');
+
+  loader.show();
 
   // Skip processing for refresh token request itself
   // if (isRefreshRequest) {
@@ -60,6 +64,9 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
       }
 
       return throwError(() => error);
+    }),
+    finalize(() => {
+      loader.hide(); 
     })
   );
 };

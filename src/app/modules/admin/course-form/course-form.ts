@@ -9,7 +9,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { HubService } from '../../../shared/services/hub-service/hub.service';
+import { HubService } from '../../../shared/hub-service/hub.service'
+import {TextControllComponent} from '../../../shared/modules/form-control/components/text-controll.component/text-controll.component';
+import {CommonButtonComponent} from '../../../shared/modules/form-control/components/common-button/common-button';
+import {CourseFormControls,CourseFormButton} from '../../../shared/modules/form-control/static/button.config'
+
 
 @Component({
   selector: 'app-course-form',
@@ -20,7 +24,9 @@ import { HubService } from '../../../shared/services/hub-service/hub.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    TextControllComponent,
+    CommonButtonComponent
   ],
   templateUrl: './course-form.html',
   styleUrl: './course-form.scss'
@@ -29,6 +35,9 @@ export class CourseForm implements OnInit {
   form!: FormGroup;
   isEdit: boolean = false;
   courseId: number = 0;
+
+  formControls = CourseFormControls;
+  buttonControls = CourseFormButton;
 
   constructor(
     private fb: FormBuilder,

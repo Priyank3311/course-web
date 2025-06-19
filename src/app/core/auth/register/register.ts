@@ -9,8 +9,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { AuthService } from '../auth.service';
 import { Router, RouterModule } from '@angular/router';
 import { SnackBarService } from '../../../shared/services/snack-bar';
-import { CommonButtonComponent } from '../../../shared/components/common-button/common-button';
+import { CommonButtonComponent } from '../../../shared/modules/form-control/components/common-button/common-button';
 import { ValidatorsPattern } from '../../../constants/validators-pattern';
+import {AuthButtonControls, LoginFormControls} from '../../../shared/modules/form-control/static/button.config'
+import { TextControllComponent } from '../../../shared/modules/form-control/components/text-controll.component/text-controll.component';
+
 
 
 @Component({
@@ -25,7 +28,8 @@ import { ValidatorsPattern } from '../../../constants/validators-pattern';
     MatCardModule,
     MatIconModule,
     CommonButtonComponent,
-    RouterModule
+    RouterModule,
+    TextControllComponent
   ],
   templateUrl: './register.html',
   styleUrl: './register.scss'
@@ -33,6 +37,9 @@ import { ValidatorsPattern } from '../../../constants/validators-pattern';
 export class Register {
   form: FormGroup;
   loading = false;
+  buttonControls = AuthButtonControls;
+  formControls = LoginFormControls;
+
   hide = true;
 
   constructor(
@@ -46,6 +53,12 @@ export class Register {
       password: ['', [Validators.required,Validators.pattern(ValidatorsPattern.password)]],
       role: ['', Validators.required]
     });
+  }
+
+  togglePasswordVisibility() {
+    this.hide = !this.hide;
+    this.formControls.passwordField.inputType = this.hide ? 'password' : 'text';
+    this.formControls.passwordField.iconName = this.hide ? 'visibility_off' : 'visibility';
   }
 
   onSubmit() {

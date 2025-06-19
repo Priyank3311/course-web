@@ -1,8 +1,8 @@
-<mat-form-field appearance="outline" class="full-width">
-  <mat-label>Search Courses</mat-label>
-  <input matInput [(ngModel)]="searchText" (input)="filterCourses()" placeholder="Search by name or department" />
-</mat-form-field>
-
+<div class="filter-bar">
+  <app-text-control [form]="searchForm" [formControlModel]="formControls.searchField"
+    (keyupEvent)="searchedMenuItems($event)" (iconClick)="removeMenuItemsSearch()">
+  </app-text-control>
+</div>
 <table mat-table [dataSource]="filteredCourses" class="mat-elevation-z3 full-width">
 
 

@@ -1,22 +1,55 @@
-::ng-deep .mat-snack-bar-container.snackbar-success {
-  background-color: #4caf50 !important;
-  color: #fff !important;
-}
+// ::ng-deep .mat-snack-bar-container.snackbar-success {
+//   background-color: #4caf50 !important;
+//   color: #fff !important;
+// }
 
-::ng-deep .mat-snack-bar-container.snackbar-error {
-  background-color: #f44336 !important;
-  color: #fff !important;
-}
+// ::ng-deep .mat-snack-bar-container.snackbar-error {
+//   background-color: #f44336 !important;
+//   color: #fff !important;
+// }
 
-::ng-deep .mat-snack-bar-container.snackbar-info {
-  background-color: #2196f3 !important;
-  color: #fff !important;
-}
+// ::ng-deep .mat-snack-bar-container.snackbar-info {
+//   background-color: #2196f3 !important;
+//   color: #fff !important;
+// }
 
-::ng-deep .mat-snack-bar-container.snackbar-warning {
-  background-color: #ff9800 !important;
-  color: #fff !important;
-}
+// ::ng-deep .mat-snack-bar-container.snackbar-warning {
+//   background-color: #ff9800 !important;
+//   color: #fff !important;
+// }
+
+// //cursor pointer
+// .pointer-cursor {
+//   cursor: pointer;
+// }
+
+// .mat-mdc-form-field-error {
+//   display: flex !important;
+//   align-items: center ;
+// }
+
+// .mat-mdc-snack-bar-container {
+//   margin-top: 20px !important;
+//   margin-right: 20px !important;
+//   &.snackbar-success {
+//     --mdc-snackbar-container-color: #5cb85c;
+//   }
+
+//   &.snackbar-error {
+//     --mdc-snackbar-container-color: #d9534f;
+//   }
+
+//   &.snackbar-info {
+//     --mdc-snackbar-container-color: #5bc0de;
+//   }
+
+//   &.snackbar-warning {
+//     --mdc-snackbar-container-color: #f0ad4e;
+//   }
+//   .mdc-button__label {
+//     color: white;
+//   }
+// }
 
 //cursor pointer
 .pointer-cursor {
@@ -26,4 +59,20 @@
 .mat-mdc-form-field-error {
   display: flex !important;
   align-items: center ;
+}
+
+.snackbar-warning div{
+  background-color: #f0ad4e !important;
+}
+
+.snackbar-success div{
+  background-color: #5cb85c !important;
+}
+
+.snackbar-error div{
+  background-color: #d9534f !important;
+}
+
+.snackbar-info div{
+  background-color: #5bc0de !important;
 }

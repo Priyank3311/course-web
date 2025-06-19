@@ -2,7 +2,7 @@
   <h2>{{ isEdit ? 'Edit Course' : 'Add Course' }}</h2>
 
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <mat-form-field appearance="outline" class="full-width">
+    <!-- <mat-form-field appearance="outline" class="full-width">
       <mat-label>Course Name</mat-label>
       <input matInput formControlName="courseName" />
       <mat-error *ngIf="form.controls['courseName'].invalid">Required (min 3 chars)</mat-error>
@@ -29,6 +29,16 @@
 
     <button mat-raised-button color="primary" type="submit">
       {{ isEdit ? 'Update' : 'Add' }}
-    </button>
+    </button> -->
+
+    <app-text-control [form]="form" [formControlModel]="formControls.courseName"></app-text-control>
+    <app-text-control [form]="form" [formControlModel]="formControls.department"></app-text-control>
+    <app-text-control [form]="form" [formControlModel]="formControls.credits"></app-text-control>
+    <app-text-control [form]="form" [formControlModel]="formControls.content"></app-text-control>
+
+    <app-common-button
+      [buttonControlModel]="buttonControls.saveButton"
+      [isDisabled]="form.invalid">
+    </app-common-button>
   </form>
 </mat-card>
