@@ -4,6 +4,7 @@ export interface CourseResponseDto {
   department: string;
   credits: number;
   totalCount : number;
+  content: string;
 }
 
 export interface EnrollRequestDto {

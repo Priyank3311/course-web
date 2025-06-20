@@ -31,4 +31,7 @@ export class StudentService extends BaseService {
   getProfile() {
     return this.get<ResponseModel<StudentProfileDto>>('/student/profile');
   }
+  getCourse(id: number) {
+    return this.get<ResponseModel<CourseResponseDto>>(`/course/${id}`);
+  }
 }

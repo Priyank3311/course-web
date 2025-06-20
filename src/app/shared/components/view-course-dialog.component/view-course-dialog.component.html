@@ -1,0 +1,28 @@
+<mat-dialog-content>
+  <h2>Course Details</h2>
+
+  <mat-form-field appearance="outline" class="full-width" disabled>
+    <mat-label>Course Name</mat-label>
+    <input matInput [value]="course.courseName" readonly />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width" disabled>
+    <mat-label>Department</mat-label>
+    <input matInput [value]="course.department" readonly />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width" disabled>
+    <mat-label>Credits</mat-label>
+    <input matInput type="number" [value]="course.credits" readonly />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width" disabled>
+    <mat-label>Content</mat-label>
+    <textarea matInput rows="4" [value]="course.content" readonly></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button color="primary" (click)="close()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="confirmEnroll()">Enroll</button>
+</mat-dialog-actions>

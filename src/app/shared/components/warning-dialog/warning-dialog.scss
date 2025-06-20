@@ -20,3 +20,29 @@
   justify-content: center;
   margin-top: 20px;
 }
+
+
+.warning-icon {
+  width: 32px;
+  height: 32px;
+  margin-bottom: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.btn-sm {
+  padding: 6px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: capitalize;
+  border-radius: 4px;
+  min-width: 80px;
+  margin-right: 5px;
+  background-color: rgb(221, 191, 191);
+
+  // Optional shadow or transition
+  box-shadow: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

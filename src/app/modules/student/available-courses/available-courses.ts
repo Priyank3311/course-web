@@ -12,11 +12,15 @@ import { AuthService } from '../../../core/auth/auth.service';
 import { HubService } from '../../../shared/hub-service/hub.service';
 import { CourseSearchControls } from '../../../shared/modules/form-control/static/button.config'
 import { TextControllComponent } from '../../../shared/modules/form-control/components/text-controll.component/text-controll.component';
+import { MatDialog } from '@angular/material/dialog';
+import { WarningDialog } from '../../../shared/components/warning-dialog/warning-dialog';
+import { ViewCourseDialogComponent } from '../../../shared/components/view-course-dialog.component/view-course-dialog.component';
+
 
 @Component({
   selector: 'app-available-courses',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule,TextControllComponent],
+  imports: [CommonModule, MatTableModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, TextControllComponent],
   templateUrl: './available-courses.html',
   styleUrl: './available-courses.scss'
 })
@@ -27,7 +31,7 @@ export class AvailableCourses implements OnInit {
   searchForm!: FormGroup;
   formControls = CourseSearchControls;
 
-  constructor(private studentService: StudentService, private snackBar: SnackBarService, private auth: AuthService, private hubService: HubService, private fb: FormBuilder) { }
+  constructor(private studentService: StudentService, private snackBar: SnackBarService, private auth: AuthService, private hubService: HubService, private fb: FormBuilder, private dialog: MatDialog) { }
   ngOnInit(): void {
     this.loadCourses();
     if (this.auth.getJustLoggedIn()) {
@@ -80,21 +84,50 @@ export class AvailableCourses implements OnInit {
     this.filteredCourses = this.courses;
   }
   enroll(courseId: number) {
-    this.studentService.enroll({ courseId }).subscribe({
-      next: (res) => {
-        if (res.data) {
-          this.snackBar.Success('Enrolled successfully!');
-          this.loadCourses();
-        } else {
-          this.snackBar.Error(res.error_message || 'Already enrolled');
-        }
-      },
-      error: (err) => {
-        console.error('Enrollment error:', err);
-        const message = err.error?.error_message || err.message || 'Enrollment failed';
-        this.snackBar.Error(message);
+    const dialogRef = this.dialog.open(WarningDialog, {
+      width: '350px',
+      data: 'Are you sure you want to enroll in this course?'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.studentService.enroll({ courseId }).subscribe({
+          next: (res) => {
+            if (res.data) {
+              this.snackBar.Success('Enrolled successfully!');
+              this.loadCourses();
+            } else {
+              this.snackBar.Error(res.error_message || 'Already enrolled');
+            }
+          },
+          error: (err) => {
+            console.error('Enrollment error:', err);
+            const message = err.error?.error_message || err.message || 'Enrollment failed';
+            this.snackBar.Error(message);
+          }
+        });
       }
     });
   }
+
+  openViewDialog(courseId: number) {
+    this.studentService.getCourse(courseId).subscribe({
+      next: (res) => {
+        const dialogRef = this.dialog.open(ViewCourseDialogComponent, {
+          width: '450px',
+          data: res.data
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+            this.enroll(courseId);
+          }
+        });
+      },
+      error: (err) => {
+        this.snackBar.Error(err?.error?.error_message || 'Failed to load course details');
+      }
+    });
+  }
+
 
 }
