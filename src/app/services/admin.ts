@@ -14,7 +14,7 @@ export class AdminService extends BaseService {
   }
 
   getCourses() {
-    return this.get<ResponseModel<CourseResponseDto[]>>('/course/api/course');
+    return this.get<ResponseModel<CourseResponseDto[]>>('/course');
   }
 
   getCourse(id: number) {
@@ -38,7 +38,7 @@ export class AdminService extends BaseService {
   }
   getPagedCourses(search: string = '', page: number = 1, size: number = 5) {
     return this.get<ResponseModel<CourseResponseDto[]>>(
-      `/course/api/Course?search=${search}&page=${page}&size=${size}`
+      `/Course/course?search=${search}&page=${page}&size=${size}`
     );
   }
 
