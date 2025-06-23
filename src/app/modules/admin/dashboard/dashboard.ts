@@ -17,6 +17,8 @@ import { MatOptionModule } from '@angular/material/core';
 import { HubService } from '../../../shared/hub-service/hub.service';
 import { CourseSearchControls } from '../../../shared/modules/form-control/static/button.config'
 import { TextControllComponent } from '../../../shared/modules/form-control/components/text-controll.component/text-controll.component';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+
 
 
 @Component({
@@ -61,6 +63,16 @@ export class Dashboard implements OnInit {
     this.searchForm = this.fb.group({
       searchText: ['']
     });
+    this.searchForm.get('searchText')?.valueChanges
+    .pipe(
+      debounceTime(300), // Wait for 300ms after last keystroke
+      distinctUntilChanged() // Only trigger if value has changed
+    )
+    .subscribe((value: string) => {
+      this.page = 1;
+      this.loadCourses();
+    });
+
     this.loadCourses();
   }
 
@@ -75,8 +87,8 @@ export class Dashboard implements OnInit {
     });
   }
   onSearch() {
-    this.page = 1;
-    this.loadCourses();
+    // this.page = 1;
+    // this.loadCourses();
   }
   onPageChange(event: PageEvent) {
     this.page = event.pageIndex + 1;
