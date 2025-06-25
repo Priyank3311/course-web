@@ -97,6 +97,12 @@ export const CourseFormControls = {
       { errorType: 'required', errorMsg: 'Credits required' },
       { errorType: 'min', errorMsg: 'Minimum value must be 1' }
     ]
+  },
+  courseImage: {
+    key: 'courseImage',
+    label: 'Upload Image',
+    imageUploadInfo: 'Only .jpg, .png under 2MB allowed',
+    previewUrl: '',
   }
 };
 

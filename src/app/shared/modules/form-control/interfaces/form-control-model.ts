@@ -19,5 +19,7 @@ export interface FormControlModel {
   iconName?: string;
   dropdownData?: { value: string | number; label: string }[];
   placeholder?: string;
+  previewUrl?: string | ArrayBuffer | null;
+  imageUploadInfo?: string;
 }
 

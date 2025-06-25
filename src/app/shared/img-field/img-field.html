@@ -1,0 +1,24 @@
+<p class="upload-text">{{ formControlModel.label }}</p>
+
+<div class="file-upload-wrapper" [class.fileUploaded]="formControlModel.previewUrl">
+  <div class="file-upload-inner" *ngIf="!formControlModel.previewUrl" (drop)="onDrop.emit($event)"
+    (dragover)="onDragover.emit($event)">
+    <input type="file" #fileInput (change)="onFileChange.emit($event)" hidden />
+    <div class="dropzone-label" (click)="fileInput.click()">
+      <img
+        src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4'/><polyline points='17 8 12 3 7 8'/><line x1='12' y1='3' x2='12' y2='15'/></svg>"
+        width="24" height="24" alt="Upload" />
+      <span>Drag and drop or <span class="primary-text">Browse files</span></span>
+    </div>
+    <p class="info-text">{{ formControlModel.imageUploadInfo }}</p>
+  </div>
+
+  <div *ngIf="formControlModel.previewUrl" class="preview-outer">
+    <img [src]="formControlModel.previewUrl" alt="Image preview" class="image-preview" />
+    <button mat-icon-button type="button" (click)="onPreviewClick.emit()">
+      <img
+        src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d32f2f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='3 6 5 6 21 6'/><path d='M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6'/><path d='M10 11v6'/><path d='M14 11v6'/><path d='M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2'/></svg>"
+        width="24" height="24" alt="Delete" />
+    </button>
+  </div>
+</div>
