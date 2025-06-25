@@ -2,43 +2,18 @@
   <h2>{{ isEdit ? 'Edit Course' : 'Add Course' }}</h2>
 
   <form [formGroup]="form" (ngSubmit)="submit()">
-    <!-- <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Course Name</mat-label>
-      <input matInput formControlName="courseName" />
-      <mat-error *ngIf="form.controls['courseName'].invalid">Required (min 3 chars)</mat-error>
-    </mat-form-field>
 
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Department</mat-label>
-      <input matInput formControlName="department" />
-      <mat-error *ngIf="form.controls['department'].invalid">Department is required</mat-error>
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Course Content</mat-label>
-      <textarea matInput formControlName="content" rows="4"></textarea>
-      <mat-error *ngIf="form.controls['content'].invalid">
-        Content is required (min 5 characters)
-      </mat-error>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Credits</mat-label>
-      <input type="number" matInput formControlName="credits" />
-      <mat-error *ngIf="form.controls['credits'].invalid">Credits must be at least 1</mat-error>
-    </mat-form-field>
-
-    <button mat-raised-button color="primary" type="submit">
-      {{ isEdit ? 'Update' : 'Add' }}
-    </button> -->
 
     <app-text-control [form]="form" [formControlModel]="formControls.courseName"></app-text-control>
     <app-text-control [form]="form" [formControlModel]="formControls.department"></app-text-control>
     <app-text-control [form]="form" [formControlModel]="formControls.credits"></app-text-control>
     <app-text-control [form]="form" [formControlModel]="formControls.content"></app-text-control>
+    <app-img-field [form]="form" [formControlModel]="formControls.courseImage" (onDrop)="onFileDropped($event)"
+      (onDragover)="($event.preventDefault())" (onFileChange)="onFileSelected($event)"
+      (onPreviewClick)="removePreviewUrl()"></app-img-field>
 
-    <app-common-button
-      [buttonControlModel]="buttonControls.saveButton"
-      [isDisabled]="form.invalid">
+
+    <app-common-button [buttonControlModel]="buttonControls.saveButton" [isDisabled]="form.invalid">
     </app-common-button>
   </form>
 </mat-card>

@@ -5,6 +5,7 @@ export interface CourseResponseDto {
   credits: number;
   totalCount : number;
   content: string;
+  imagePath?: string;
 }
 
 export interface EnrollRequestDto {
@@ -24,4 +25,5 @@ export interface CourseRequestDto {
   department: string;
   credits: number;
   content: string;
+  courseImage?: File;
 }

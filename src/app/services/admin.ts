@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { CourseRequestDto, CourseResponseDto } from '../models/course.model';
 import { ResponseModel } from '../models/response.model';
 import { StudentInCourseDto } from '../models/enrollment.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +22,19 @@ export class AdminService extends BaseService {
     return this.get<ResponseModel<CourseResponseDto>>(`/course/${id}`);
   }
 
-  addCourse(dto: CourseRequestDto) {
-    return this.add<CourseRequestDto, ResponseModel<CourseResponseDto>>('/course', dto);
+  // addCourse(dto: CourseRequestDto) {
+  //   return this.add<CourseRequestDto, ResponseModel<CourseResponseDto>>('/course', dto);
+  // }
+  addCourse(dto: FormData) :Observable<ResponseModel<CourseResponseDto>> {
+    return this.add(`/course`, dto);
   }
 
-  updateCourse(id: number, dto: CourseRequestDto) {
-    return this.update<CourseRequestDto, ResponseModel<boolean>>(`/course/${id}`, dto);
+
+  // updateCourse(id: number, dto: CourseRequestDto) {
+  //   return this.update<CourseRequestDto, ResponseModel<boolean>>(`/course/${id}`, dto);
+  // }
+  updateCourse(id: number, dto: FormData) {
+    return this.update(`/course/${id}`, dto);
   }
 
   deleteCourse(id: number) {

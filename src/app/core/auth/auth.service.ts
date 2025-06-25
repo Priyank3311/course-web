@@ -4,6 +4,8 @@ import { BaseService } from '../../services/base.service';
 import { LoginRequestDto, AuthResponseDto, RegisterRequestDto } from '../../models/auth.model';
 import { ResponseModel } from '../../models/response.model';
 import { catchError, map, Observable, tap, throwError } from 'rxjs';
+import {jwtDecode} from 'jwt-decode';
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +28,16 @@ export class AuthService extends BaseService {
 
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+  decodeToken(): any {
+    const token = this.getToken();
+    if (!token) return null;
+    try {
+      return jwtDecode(token);
+    } catch (err) {
+      console.error('Token decoding failed:', err);
+      return null;
+    }
   }
 
   logout() {
