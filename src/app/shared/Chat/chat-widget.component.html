@@ -1,0 +1,24 @@
+<!-- Show chat button only when closed -->
+<button class="chat-fab" (click)="toggleChat()" *ngIf="!isOpen">
+  💬
+</button>
+
+<!-- Show chat widget only when open -->
+<div class="chatbot-container" *ngIf="isOpen">
+  <div class="chat-header" (click)="toggleChat()">
+    <span>ChatBot</span>
+    <span class="close-btn">✖</span>
+  </div>
+
+  <div class="chat-body">
+    <div class="chat-messages">
+      <div *ngFor="let msg of messages" [ngClass]="msg.sender">
+        <b>{{ msg.sender === 'user' ? 'You' : 'Course' }}:</b> {{ msg.text }}
+      </div>
+    </div>
+    <div class="chat-input">
+      <input [(ngModel)]="prompt" (keyup.enter)="sendMessage()" placeholder="Type a message..." />
+      <button (click)="sendMessage()">➤</button>
+    </div>
+  </div>
+</div>

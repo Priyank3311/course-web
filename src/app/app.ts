@@ -50,10 +50,10 @@ export class App implements OnInit {
       onMessage(messaging, (payload) => {
         console.log('📥 Foreground message received:', payload);
 
-        // You can show a custom notification like this:
+
         new Notification(payload.notification?.title ?? 'Default Title', {
           body: payload.notification?.body ?? 'Default Body',
-          icon: '/assets/logo.png' // Optional icon
+          icon: '/assets/logo.png'
         });
       });
 
@@ -65,8 +65,6 @@ export class App implements OnInit {
 
         if (token) {
           console.log('Device Token:', token);
-
-          // 🔁 Replace with actual userId (e.g., from auth service)
           const decodedToken = this.authService.decodeToken();
           console.log('Decoded Token:', decodedToken);
           const userId = decodedToken?.user_id;
@@ -79,7 +77,6 @@ export class App implements OnInit {
             error: err => console.error('Token save failed', err)
           });
         }
-        // You can now send this token to your backend
       } catch (err) {
         console.error('Error getting device token:', err);
       }

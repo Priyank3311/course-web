@@ -15,12 +15,13 @@ import { TextControllComponent } from '../../../shared/modules/form-control/comp
 import { MatDialog } from '@angular/material/dialog';
 import { WarningDialog } from '../../../shared/components/warning-dialog/warning-dialog';
 import { ViewCourseDialogComponent } from '../../../shared/components/view-course-dialog.component/view-course-dialog.component';
+import { ChatWidgetComponent } from '../../../shared/Chat/chat-widget.component';
 
 
 @Component({
   selector: 'app-available-courses',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, TextControllComponent],
+  imports: [CommonModule, MatTableModule, MatInputModule, MatIconModule, MatButtonModule, FormsModule, TextControllComponent,ChatWidgetComponent],
   templateUrl: './available-courses.html',
   styleUrl: './available-courses.scss'
 })
